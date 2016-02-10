@@ -119,11 +119,13 @@ public class Ticket {
 			tickets[i] = new Ticket(event, 10 + i);
 		}
 		
-		
-		
-		
-		
-		
+		//print sold tickets
+		for(Ticket t : tickets){
+			System.out.println(t.getId() 
+				+ " - Event: " + t.getEvent().getTitle()
+				+ ", Place: " + t.getPlaceNumber());
+		}
+			
 	}
 
 }
