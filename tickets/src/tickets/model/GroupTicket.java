@@ -69,7 +69,6 @@ public class GroupTicket extends Ticket{
 			new Ticket(event, 8)
 		};
 		
-		System.out.println(t);
 
 	}
 
