@@ -70,6 +70,10 @@ public class Ticket {
 		return placeNumber;
 	}
 
+	public int[] getPlaces() {
+		return new int[] {placeNumber};
+	}
+	
 	public void setPlaceNumber(int placeNumber) {
 		this.placeNumber = placeNumber;
 	}

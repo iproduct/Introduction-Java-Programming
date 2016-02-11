@@ -1,6 +1,7 @@
 package tickets.model;
 
 import java.util.Arrays;
+import java.util.Date;
 
 public class GroupTicket extends Ticket{
 	public static final int GROUP_TICKET_PLACEHOLDER = -1;
@@ -34,6 +35,7 @@ public class GroupTicket extends Ticket{
 		this.places = places;
 	}
 
+	@Override
 	public int[] getPlaces() {
 		return places;
 	}
@@ -56,7 +58,18 @@ public class GroupTicket extends Ticket{
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		Event event = new Event(
+				"OpenFest", "Festival of open source technologies",
+				"Phylocharmony", new Date(), new Date(), 1500, 0);
+		
+		Ticket[] tickets = {
+			new GroupTicket(event, 2, 7, 9, 14, 15),
+			new Ticket(event, 3),
+			new GroupTicket(event, 10, 11, 12, 13)
+		};
+
+		
+		System.out.println(t);
 
 	}
 
