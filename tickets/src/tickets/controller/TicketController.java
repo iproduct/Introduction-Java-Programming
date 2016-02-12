@@ -2,6 +2,7 @@ package tickets.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.BitSet;
 import java.util.Date;
 import java.util.List;
 
@@ -28,9 +29,21 @@ public class TicketController {
 		if(event == null)
 			throw new TicketNotValidException(
 				"Event not specified in ticket ID: "+ ticket.getId());
-		eventController.getEventById(event.getId());
+		event = eventController.getEventById(event.getId());
 		
+		BitSet placesSold = event.getPlacesSold();
+		//validate ticket place is valid and places not already sold 
+		for(int place:  ticket.getPlaces()) {
+			if(place > event.getTicketNumber() || placesSold.get(place -1))
+				throw new TicketNotValidException(
+					"Ticket place number not valid: " + place 
+					+ ". Should be in [1 to " + event.getTicketNumber() + "]");
+		}
 		
+		//sell ticket places
+		for(int place: ticket.getPlaces()){
+			placesSold.set(place - 1);
+		}
 		tickets.add(ticket);
 		return ticket;
 	}
@@ -59,8 +72,6 @@ public class TicketController {
 	}
 
 	public static void main(String[] args) throws Exception {
-		EventController eventController = new EventController();
-		TicketController ticketController = new TicketController(eventController);
 		Event[] events = {
 			new Event("OpenFest", "Festival of open source technologies", 
 					"Phylocharmony", new Date(), new Date(), 1500, 0),
@@ -72,13 +83,20 @@ public class TicketController {
 		Ticket[] testTickets = {
 				new GroupTicket(events[0], 2, 7, 9, 14, 15),
 				new Ticket(events[2], events[2].getTicketPrice(), "Ivan Petrov", 15),
-				new Ticket(events[0], 7),
+				new Ticket(events[0], 45),
 				new GroupTicket(events[0], 10, 11, 12, 13),
 				new GroupTicket(events[2], 21, 22, 23, 24, 25),
 				new Ticket(events[0], 8)
 			};
 		
+		//create controllers
+		EventController eventController = new EventController();
+		TicketController ticketController = new TicketController(eventController);
 		
+		//add sample events
+		for(Event ev : events){
+			eventController.addEvent(ev);
+		}
 		
 		//sell test tickets
 		for(Ticket ticket : testTickets){
