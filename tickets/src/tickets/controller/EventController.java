@@ -9,11 +9,18 @@ import tickets.exception.EntityDoesNotExistException;
 import tickets.model.Event;
 import tickets.model.Ticket;
 
-public class TicketController {
-	private List<Ticket> tickets = new ArrayList<>();
+public class EventController {
+	private List<Event> events = new ArrayList<>();
 	
 	public Event addEvent(Event event) 
 			throws EntityAlreadyExistsException {
+		// validate event is new one
+//		for(Event e : events){
+//			if(e.equals(event)){
+//				throw new EntityAlreadyExistsException(
+//					"Event already added with ID: " + event.getId());
+//			}
+//		}
 		if(events.contains(event))
 			throw new EntityAlreadyExistsException(
 					"Event already added with ID: " + event.getId());
@@ -48,16 +55,20 @@ public class TicketController {
 	}
 
 	public static void main(String[] args) {
-		TicketController controller = new TicketController();
+		EventController controller = new EventController();
 		Event event = new Event(
 				"OpenFest", "Festival of open source technologies",
 				"Phylocharmony", new Date(), new Date(), 1500, 0);
 		Event event2 = new Event(
 				"New Movie", "Comedy",
 				"NDK", new Date(), new Date(), 800, 10);
+		Event event3 = new Event(
+				"Expecting Godo", "Famous classical play.",
+				"Army Theater", new Date(), new Date(), 150, 12);
 		try {
 			controller.addEvent(event);
 			controller.addEvent(event2);
+			controller.addEvent(event3);
 			for(Event e : controller.getEvents())
 				System.out.println(e);
 			
@@ -65,6 +76,10 @@ public class TicketController {
 			event.setTitle("OpenFest 2016");
 			event.setTicketNumber(2000);
 			controller.editEvent(event);
+			
+			//delete event
+			System.out.println("\nSuccessfully deleted: " 
+					+ controller.deleteEventById(event2.getId()));
 			
 			System.out.println("\nAfter edit:");
 			for(Event e : controller.getEvents())
