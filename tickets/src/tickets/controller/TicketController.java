@@ -7,16 +7,30 @@ import java.util.List;
 
 import tickets.exception.EntityAlreadyExistsException;
 import tickets.exception.EntityDoesNotExistException;
+import tickets.exception.TicketNotValidException;
 import tickets.model.Event;
 import tickets.model.GroupTicket;
 import tickets.model.Ticket;
 
 public class TicketController {
 	private List<Ticket> tickets = new ArrayList<>();
-
-	public Ticket sellTicket(Ticket ticket) throws EntityAlreadyExistsException {
+	private EventController eventController;
+	
+	public TicketController(EventController evController){
+		eventController = evController;
+	}
+	
+	public Ticket sellTicket(Ticket ticket) 
+			throws EntityAlreadyExistsException,  TicketNotValidException{
 		if (tickets.contains(ticket))
 			throw new EntityAlreadyExistsException("Ticket already added with ID: " + ticket.getId());
+		Event event = ticket.getEvent();
+		if(event == null)
+			throw new TicketNotValidException(
+				"Event not specified in ticket ID: "+ ticket.getId());
+		eventController.getEventById(event.getId());
+		
+		
 		tickets.add(ticket);
 		return ticket;
 	}
@@ -45,7 +59,8 @@ public class TicketController {
 	}
 
 	public static void main(String[] args) throws Exception {
-		TicketController controller = new TicketController();
+		EventController eventController = new EventController();
+		TicketController ticketController = new TicketController(eventController);
 		Event event = new Event("OpenFest", "Festival of open source technologies", "Phylocharmony", new Date(),
 				new Date(), 1500, 0);
 		Event event2 = new Event("New Movie", "Comedy", "NDK", new Date(), new Date(), 800, 10);
@@ -62,11 +77,11 @@ public class TicketController {
 		
 		//sell test tickets
 		for(Ticket ticket : testTickets){
-			controller.sellTicket(ticket);
+			ticketController.sellTicket(ticket);
 		}
 		
 		//print sold tickets
-		for(Ticket t : controller.getTickets()){
+		for(Ticket t : ticketController.getTickets()){
 			System.out.println(t.getId() 
 				+ " - Event: " + t.getEvent().getTitle()
 				+ ", Place: " + Arrays.toString(t.getPlaces()));

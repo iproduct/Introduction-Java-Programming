@@ -32,6 +32,16 @@ public class EventController {
 		return events;
 	}
 	
+	public Event getEventById(long eventId){
+		Event testEvent = new Event();
+		testEvent.setId(eventId);
+		int index = events.indexOf(testEvent);
+		if(index < 0)
+			return null;
+		else
+			return events.get(index);
+	}
+	
 	public Event editEvent(Event event) throws EntityDoesNotExistException {
 		int index = events.indexOf(event);
 		if(index < 0)
@@ -44,14 +54,13 @@ public class EventController {
 	
 	public Event deleteEventById(long eventId) 
 			throws EntityDoesNotExistException {
-		Event testEvent = new Event();
-		testEvent.setId(eventId);
-		int index = events.indexOf(testEvent);
-		if(index < 0)
+		Event foundEvent = getEventById(eventId);
+		if(foundEvent == null)
 			throw new EntityDoesNotExistException(
 				"Event with ID: " + eventId + "does not exist.");
 		
-		return events.remove(index);
+		events.remove(foundEvent);
+		return foundEvent;
 	}
 
 	public static void main(String[] args) {

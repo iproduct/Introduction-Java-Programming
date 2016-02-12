@@ -1,5 +1,6 @@
 package tickets.model;
 
+import java.util.BitSet;
 import java.util.Date;
 
 public class Event {
@@ -11,6 +12,7 @@ public class Event {
 	private Date start, end;
 	private int ticketNumber;
 	private double ticketPrice;
+	private BitSet placesSold;
 	
 	
 	public Event() {
@@ -110,6 +112,12 @@ public class Event {
 
 	public void setTicketPrice(double ticketPrice) {
 		this.ticketPrice = ticketPrice;
+	}
+	
+	public BitSet getPlacesSold() {
+		if(placesSold == null) 
+			placesSold = new BitSet(getTicketNumber());
+		return placesSold;
 	}
 	
 	@Override
