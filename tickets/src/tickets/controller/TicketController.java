@@ -1,81 +1,78 @@
 package tickets.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import tickets.exception.EntityAlreadyExistsException;
 import tickets.exception.EntityDoesNotExistException;
 import tickets.model.Event;
+import tickets.model.GroupTicket;
 import tickets.model.Ticket;
 
 public class TicketController {
 	private List<Ticket> tickets = new ArrayList<>();
-	
-	public Event addEvent(Event event) 
-			throws EntityAlreadyExistsException {
-		if(events.contains(event))
-			throw new EntityAlreadyExistsException(
-					"Event already added with ID: " + event.getId());
-		events.add(event);
-		return event;
-	}
-	
-	public List<Event> getEvents(){
-		return events;
-	}
-	
-	public Event editEvent(Event event) throws EntityDoesNotExistException {
-		int index = events.indexOf(event);
-		if(index < 0)
-			throw new EntityDoesNotExistException(
-				"Event with ID: " + event.getId() + "does not exist.");
-		
-		events.set(index, event);
-		return event;
-	}
-	
-	public Event deleteEventById(long eventId) 
-			throws EntityDoesNotExistException {
-		Event testEvent = new Event();
-		testEvent.setId(eventId);
-		int index = events.indexOf(testEvent);
-		if(index < 0)
-			throw new EntityDoesNotExistException(
-				"Event with ID: " + eventId + "does not exist.");
-		
-		return events.remove(index);
+
+	public Ticket sellTicket(Ticket ticket) throws EntityAlreadyExistsException {
+		if (tickets.contains(ticket))
+			throw new EntityAlreadyExistsException("Ticket already added with ID: " + ticket.getId());
+		tickets.add(ticket);
+		return ticket;
 	}
 
-	public static void main(String[] args) {
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public Ticket editTicket(Ticket ticket) throws EntityDoesNotExistException {
+		int index = tickets.indexOf(ticket);
+		if (index < 0)
+			throw new EntityDoesNotExistException("Ticket with ID: " + ticket.getId() + "does not exist.");
+
+		tickets.set(index, ticket);
+		return ticket;
+	}
+
+	public Ticket deleteTicketById(long ticketId) throws EntityDoesNotExistException {
+		Ticket testTicket = new Ticket();
+		testTicket.setId(ticketId);
+		int index = tickets.indexOf(testTicket);
+		if (index < 0)
+			throw new EntityDoesNotExistException("Ticket with ID: " + ticketId + "does not exist.");
+
+		return tickets.remove(index);
+	}
+
+	public static void main(String[] args) throws Exception {
 		TicketController controller = new TicketController();
-		Event event = new Event(
-				"OpenFest", "Festival of open source technologies",
-				"Phylocharmony", new Date(), new Date(), 1500, 0);
-		Event event2 = new Event(
-				"New Movie", "Comedy",
-				"NDK", new Date(), new Date(), 800, 10);
-		try {
-			controller.addEvent(event);
-			controller.addEvent(event2);
-			for(Event e : controller.getEvents())
-				System.out.println(e);
-			
-			//edit event
-			event.setTitle("OpenFest 2016");
-			event.setTicketNumber(2000);
-			controller.editEvent(event);
-			
-			System.out.println("\nAfter edit:");
-			for(Event e : controller.getEvents())
-				System.out.println(e);
-			
-		} catch (EntityAlreadyExistsException e) {
-			e.printStackTrace();
-		} catch (EntityDoesNotExistException e1) {
-			e1.printStackTrace();
+		Event event = new Event("OpenFest", "Festival of open source technologies", "Phylocharmony", new Date(),
+				new Date(), 1500, 0);
+		Event event2 = new Event("New Movie", "Comedy", "NDK", new Date(), new Date(), 800, 10);
+		Event event3 = new Event("Expecting Godo", "Famous classical play.", "Army Theater", new Date(), new Date(),
+				150, 12);
+		Ticket[] testTickets = {
+				new GroupTicket(event, 2, 7, 9, 14, 15),
+				new Ticket(event3, event3.getTicketPrice(), "Ivan Petrov", 15),
+				new Ticket(event, 3),
+				new GroupTicket(event, 10, 11, 12, 13),
+				new GroupTicket(event3, 21, 22, 23, 24, 25),
+				new Ticket(event, 8)
+			};
+		
+		//sell test tickets
+		for(Ticket ticket : testTickets){
+			controller.sellTicket(ticket);
 		}
 		
+		//print sold tickets
+		for(Ticket t : controller.getTickets()){
+			System.out.println(t.getId() 
+				+ " - Event: " + t.getEvent().getTitle()
+				+ ", Place: " + Arrays.toString(t.getPlaces()));
+		}
+		
+
 	}
 
 }

@@ -81,6 +81,7 @@ public class EventController {
 			System.out.println("\nSuccessfully deleted: " 
 					+ controller.deleteEventById(event2.getId()));
 			
+			//print result
 			System.out.println("\nAfter edit:");
 			for(Event e : controller.getEvents())
 				System.out.println(e);

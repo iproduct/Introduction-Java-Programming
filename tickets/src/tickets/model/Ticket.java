@@ -82,6 +82,10 @@ public class Ticket {
 		return id;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
