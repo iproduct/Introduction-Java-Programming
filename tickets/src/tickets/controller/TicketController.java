@@ -54,7 +54,7 @@ public class TicketController {
 		Ticket[] testTickets = {
 				new GroupTicket(event, 2, 7, 9, 14, 15),
 				new Ticket(event3, event3.getTicketPrice(), "Ivan Petrov", 15),
-				new Ticket(event, 3),
+				new Ticket(event, 7),
 				new GroupTicket(event, 10, 11, 12, 13),
 				new GroupTicket(event3, 21, 22, 23, 24, 25),
 				new Ticket(event, 8)
