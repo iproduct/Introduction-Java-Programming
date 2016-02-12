@@ -61,19 +61,24 @@ public class TicketController {
 	public static void main(String[] args) throws Exception {
 		EventController eventController = new EventController();
 		TicketController ticketController = new TicketController(eventController);
-		Event event = new Event("OpenFest", "Festival of open source technologies", "Phylocharmony", new Date(),
-				new Date(), 1500, 0);
-		Event event2 = new Event("New Movie", "Comedy", "NDK", new Date(), new Date(), 800, 10);
-		Event event3 = new Event("Expecting Godo", "Famous classical play.", "Army Theater", new Date(), new Date(),
-				150, 12);
+		Event[] events = {
+			new Event("OpenFest", "Festival of open source technologies", 
+					"Phylocharmony", new Date(), new Date(), 1500, 0),
+			new Event("New Movie", "Comedy", "NDK", new Date(), new Date(), 800, 10),
+			new Event("Expecting Godo", "Famous classical play.", 
+					"Army Theater", new Date(), new Date(), 150, 12)
+		};
+		
 		Ticket[] testTickets = {
-				new GroupTicket(event, 2, 7, 9, 14, 15),
-				new Ticket(event3, event3.getTicketPrice(), "Ivan Petrov", 15),
-				new Ticket(event, 7),
-				new GroupTicket(event, 10, 11, 12, 13),
-				new GroupTicket(event3, 21, 22, 23, 24, 25),
-				new Ticket(event, 8)
+				new GroupTicket(events[0], 2, 7, 9, 14, 15),
+				new Ticket(events[2], events[2].getTicketPrice(), "Ivan Petrov", 15),
+				new Ticket(events[0], 7),
+				new GroupTicket(events[0], 10, 11, 12, 13),
+				new GroupTicket(events[2], 21, 22, 23, 24, 25),
+				new Ticket(events[0], 8)
 			};
+		
+		
 		
 		//sell test tickets
 		for(Ticket ticket : testTickets){
