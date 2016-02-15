@@ -71,7 +71,7 @@ public class TicketController {
 		return tickets.remove(index);
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args){
 		Event[] events = {
 			new Event("OpenFest", "Festival of open source technologies", 
 					"Phylocharmony", new Date(), new Date(), 1500, 0),
@@ -95,12 +95,24 @@ public class TicketController {
 		
 		//add sample events
 		for(Event ev : events){
-			eventController.addEvent(ev);
+			try {
+				eventController.addEvent(ev);
+			} catch (EntityAlreadyExistsException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		//sell test tickets
 		for(Ticket ticket : testTickets){
-			ticketController.sellTicket(ticket);
+			try {
+				ticketController.sellTicket(ticket);
+			} catch (EntityAlreadyExistsException e) {
+				e.printStackTrace();
+			} catch (TicketNotValidException e) {
+				e.printStackTrace();
+			} catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 		
 		//print sold tickets
