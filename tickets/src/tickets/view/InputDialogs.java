@@ -2,6 +2,7 @@ package tickets.view;
 
 import tickets.TicketsApp;
 import tickets.model.Event;
+import tickets.model.Ticket;
 
 public class InputDialogs {
 	private TicketsApp application;
@@ -11,6 +12,10 @@ public class InputDialogs {
 	}
 	
 	public Event inputEvent() {
+		return null;
+	}
+
+	public Ticket sellTicket() {
 		return null;
 	}
 
