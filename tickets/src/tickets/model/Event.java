@@ -3,7 +3,7 @@ package tickets.model;
 import java.util.BitSet;
 import java.util.Date;
 
-public class Event {
+public class Event implements Comparable<Event>{
 	private static long count = 0;
 	private long id = count++;
 	private String title;
@@ -150,6 +150,11 @@ public class Event {
 			.append(end).append(", ticketNumber=").append(ticketNumber).append(", ticketPrice=").append(ticketPrice)
 			.append("]");
 		return builder.toString();
+	}
+	
+	@Override
+	public int compareTo(Event event) {
+		return getStart().compareTo(event.getStart());
 	}
 
 	public static void main(String[] args) {
