@@ -8,6 +8,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import tickets.model.Event;
+import tickets.model.GroupTicket;
+import tickets.model.Ticket;
 
 public class OutputDialogs {
 	private static final SimpleDateFormat sdf = 
@@ -63,6 +65,25 @@ public class OutputDialogs {
 					sdf.parse("25.02.2016 20:30"), 800, 22.5),
 		};
 		printEvents(Arrays.asList(events));
+		
+		Ticket[] testTickets = {
+				new GroupTicket(events[0], 2, 7, 9, 14, 15),
+				new Ticket(events[2], events[2].getTicketPrice(), "Ivan Petrov", 15),
+				new Ticket(events[0], 45),
+				new GroupTicket(events[0], 10, 11, 12, 13),
+				new GroupTicket(events[2], 21, 22, 23, 24, 25),
+				new Ticket(events[0], 8)
+			};
+		
+		Arrays.sort(testTickets);
+		for(Ticket t : testTickets){
+			System.out.println("ID: "+ t.getId()
+			+ ", Event: " + t.getEvent().getTitle()
+			+ ", Date: " + sdf.format(t.getEvent().getStart())
+			+ ", Price: " + t.getPrice()
+			+ ", Places: " + Arrays.toString(t.getPlaces()));
+		}
+
 	}
 
 }

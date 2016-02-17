@@ -2,7 +2,7 @@ package tickets.model;
 
 import java.util.Date;
 
-public class Ticket {
+public class Ticket implements Comparable<Ticket>{
 	private static long counter = 0;
 	private long id = counter++;
     private Event event;
@@ -134,6 +134,12 @@ public class Ticket {
 				+ ", Place: " + t.getPlaceNumber());
 		}
 			
+	}
+
+	@Override
+	public int compareTo(Ticket other) {
+//		return (int)Math.signum(this.getId() - other.getId());
+		return this.getEvent().getStart().compareTo(other.getEvent().getStart());
 	}
 
 }
