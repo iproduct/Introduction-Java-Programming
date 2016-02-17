@@ -10,6 +10,7 @@ import java.util.List;
 import tickets.model.Event;
 import tickets.model.GroupTicket;
 import tickets.model.Ticket;
+import tickets.util.TicketEventDatePlacesComparator;
 
 public class OutputDialogs {
 	private static final SimpleDateFormat sdf = 
@@ -75,7 +76,7 @@ public class OutputDialogs {
 				new Ticket(events[0], 8)
 			};
 		
-		Arrays.sort(testTickets);
+		Arrays.sort(testTickets, new TicketEventDatePlacesComparator());
 		for(Ticket t : testTickets){
 			System.out.println("ID: "+ t.getId()
 			+ ", Event: " + t.getEvent().getTitle()
