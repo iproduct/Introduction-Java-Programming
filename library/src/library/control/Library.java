@@ -29,7 +29,7 @@ public class Library {
 		sb.append(new String(underline) + "\n");
 		
 		for(Book book : books) {
-			sb.append(String.format("|%3s|%-30s|%-16s|%4d|%-10s|%-10s|\n", 
+			sb.append(String.format("|%3s|%-30.30s|%-16.16s|%4d|%-10.10s|%-10.10s|\n", 
 					book.getId(), book.getTitle(), book.getAuthors(),
 					book.getYear(), book.getPublisher(), book.getGenre()));
 		}
