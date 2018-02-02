@@ -7,7 +7,7 @@ public class Book {
 	
 	private long id = nextId++;
 	private String title;
-	private String authors = "anonimous";
+	private String authors;
 	private int year;
 	private String isbn;
 	private String publisher;
@@ -129,7 +129,7 @@ public class Book {
 		if (getClass() != obj.getClass())
 			return false;
 		Book other = (Book) obj;
-		if (id != other.id)
+		if (this.id != other.id)
 			return false;
 		return true;
 	}
@@ -156,7 +156,6 @@ public class Book {
 	public static void main(String[] args) {
 		Book b1 = new Book("Thinking in Java 4ed.", "Bruce Eckel", 2006);
 		System.out.println(b1);
-		
 		Book b2 = new Book("Algorithms + Data Structures = Programs", "Niklaus Wirth", 1976, 
 				"ISBN 978-0-13-022418-7", "Prentice-Hall", Genre.SOFTWARE, 
 				new String[] {"programming", "algorithm", "data structure", "classic"});

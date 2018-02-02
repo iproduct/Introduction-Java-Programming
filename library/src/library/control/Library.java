@@ -1,6 +1,7 @@
 package library.control;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 import library.model.Book;
 import library.model.Genre;
@@ -10,6 +11,7 @@ public class Library {
 	
 	private Book[] books = new Book[1000];
 	private int numBooks = 0;
+	private Scanner sc = new Scanner(System.in);
 	
 	public boolean addBook(Book book) {
 		books[numBooks++] = book;
@@ -18,6 +20,13 @@ public class Library {
 	
 	public Book[] getAllBooks() {
 		return Arrays.copyOf(books, numBooks);	
+	}
+	
+	public void inputNewBook() {
+		Book book = new Book();
+		System.out.print("Title: ");
+		book.setTitle(sc.nextLine());
+		addBook(book);
 	}
 	
 	public static String formatAsTable(Book[] books) {
@@ -52,6 +61,7 @@ public class Library {
 //			System.out.println(book);
 //		}
 		
+		library.inputNewBook();
 		System.out.println(formatAsTable(library.getAllBooks()));
 		
 		
