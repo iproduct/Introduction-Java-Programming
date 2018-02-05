@@ -52,13 +52,19 @@ public class Library {
 		for(Genre genre: Genre.values())
 			System.out.print(genre.ordinal() + "-" + genre + ", ");
 		System.out.print("):");
-		inputStr = sc.nextLine();
-		int genre = 0;
-		try {
-			genre = Integer.parseInt(inputStr);
-		} catch(NumberFormatException e) {
-			System.out.println("Invalid number. Try again.");
-		}
+		
+		int genre = -1;
+		do {
+			inputStr = sc.nextLine();
+			try {
+				genre = Integer.parseInt(inputStr);
+			} catch(NumberFormatException e) {
+				System.out.println("Invalid number. Try again.");
+			}
+			if(genre >= Genre.values().length) {
+				System.out.println("No such Genre. Try again.");
+			}
+		} while(genre < 0 || genre >= Genre.values().length);
 		book.setGenre(Genre.values()[genre]);
 		
 		addBook(book);
