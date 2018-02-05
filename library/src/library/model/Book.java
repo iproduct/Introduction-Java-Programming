@@ -7,7 +7,7 @@ public class Book {
 	
 	private long id = nextId++;
 	private String title;
-	private String authors;
+	private Author[] authors = {};
 	private int year;
 	private String isbn;
 	private String publisher;
@@ -19,14 +19,14 @@ public class Book {
 	}
 
 	// Mandatory args constructor
-	public Book(String title, String authors, int year) {
+	public Book(String title, Author[] authors, int year) {
 		this.title = title;
 		this.authors = authors;
 		this.year = year;
 	}
 	
 	// Full constructors
-	public Book(String title, String authors, int year, String isbn, String publisher, Genre genre, String[] tags) {
+	public Book(String title, Author[] authors, int year, String isbn, String publisher, Genre genre, String[] tags) {
 		this.title = title;
 		this.authors = authors;
 		this.year = year;
@@ -36,7 +36,7 @@ public class Book {
 		this.tags = tags;
 	}
 
-	public Book(long id, String title, String authors, int year, String isbn, String publisher, 
+	public Book(long id, String title, Author[] authors, int year, String isbn, String publisher, 
 			Genre genre, String[] tags) {
 		this.id = id;
 		this.title = title;
@@ -64,11 +64,11 @@ public class Book {
 		this.title = title;
 	}
 
-	public String getAuthors() {
+	public Author[] getAuthors() {
 		return authors;
 	}
 
-	public void setAuthors(String authors) {
+	public void setAuthors(Author[] authors) {
 		this.authors = authors;
 	}
 
@@ -154,9 +154,11 @@ public class Book {
 	}
 
 	public static void main(String[] args) {
-		Book b1 = new Book("Thinking in Java 4ed.", "Bruce Eckel", 2006);
+		Book b1 = new Book("Thinking in Java 4ed.", 
+				new Author[] {new Author("Bruce", "Eckel")}, 2006);
 		System.out.println(b1);
-		Book b2 = new Book("Algorithms + Data Structures = Programs", "Niklaus Wirth", 1976, 
+		Book b2 = new Book("Algorithms + Data Structures = Programs", 
+				new Author[] {new Author("Niklaus", "Wirth")}, 1976, 
 				"ISBN 978-0-13-022418-7", "Prentice-Hall", Genre.SOFTWARE, 
 				new String[] {"programming", "algorithm", "data structure", "classic"});
 		System.out.println(b2);
