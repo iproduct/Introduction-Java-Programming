@@ -144,6 +144,8 @@ public class Library {
 		library.inputNewBook();
 
 		System.out.println(formatAsTable(library.getAllBooks()));
+		
+		
 
 	}
 
