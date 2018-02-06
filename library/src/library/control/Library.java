@@ -117,7 +117,9 @@ public class Library {
 
 		for (Book book : books) {
 			sb.append(String.format("|%3s|%-30.30s|%-16.16s|%4d|%-10.10s|%-10.10s|\n", book.getId(), book.getTitle(),
-					book.getAuthors(), book.getYear(), book.getPublisher(), book.getGenre()));
+					book.getAuthors()[0].getFirstName() + " " + book.getAuthors()[0].getLastName() 
+					+ (book.getAuthors().length > 1 ? " ..." : ""), 
+					book.getYear(), book.getPublisher(), book.getGenre()));
 		}
 
 		return sb.toString();
@@ -128,12 +130,12 @@ public class Library {
 
 		Book b1 = new Book("Thinking in Java 4ed.", 
 				new Author[] {new Author("Bruce", "Eckel")}, 2006);
-		System.out.println(b1);
+		library.addBook(b1);
 		Book b2 = new Book("Algorithms + Data Structures = Programs", 
 				new Author[] {new Author("Niklaus", "Wirth")}, 1976, 
 				"ISBN 978-0-13-022418-7", "Prentice-Hall", Genre.SOFTWARE, 
 				new String[] {"programming", "algorithm", "data structure", "classic"});
-		System.out.println(b2);
+		library.addBook(b2);
 
 		// for(Book book : library.getAllBooks()) {
 		// System.out.println(book);
