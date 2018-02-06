@@ -19,6 +19,18 @@ public class Library {
 	private Scanner sc = new Scanner(System.in);
 
 	public boolean addBook(Book book) {
+		for(int i = 0; i < book.getAuthors().length; i++) {
+			Author author = book.getAuthors()[i];
+			Author foundAuthor = addAndGetAuthor(author);
+			book.getAuthors()[i] = foundAuthor;
+			
+			// Add book to author book list
+			Book[] authorBooks = foundAuthor.getBooks();
+			Book[] newAuthorBooks = Arrays.copyOf(authorBooks, authorBooks.length + 1);
+			newAuthorBooks[newAuthorBooks.length - 1] = book;
+			foundAuthor.setBooks(newAuthorBooks);
+		}
+		
 		books[numBooks++] = book;
 		return true;
 	}
@@ -145,6 +157,7 @@ public class Library {
 
 		System.out.println(formatAsTable(library.getAllBooks()));
 		
+		System.out.println(Arrays.toString(library.getAllAuthors()));
 		
 
 	}
