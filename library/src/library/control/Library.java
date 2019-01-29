@@ -27,8 +27,8 @@ public class Library {
 			// Add book to author book list
 			Book[] authorBooks = foundAuthor.getBooks();
 			Book[] newAuthorBooks = Arrays.copyOf(authorBooks, authorBooks.length + 1);
-			newAuthorBooks[newAuthorBooks.length - 1] = book;
-			foundAuthor.setBooks(newAuthorBooks);
+			newAuthorBooks[newAuthorBooks.length - 1] = book; //append new book to new author's books array
+			foundAuthor.setBooks(newAuthorBooks); //replace the author's books array with new one
 		}
 		
 		books[numBooks++] = book;
