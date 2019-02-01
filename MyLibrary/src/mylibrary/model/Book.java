@@ -4,6 +4,8 @@ import static mylibrary.model.Genre.*;
 
 import java.util.Arrays;
 
+import mylibrary.Library;
+
 public class Book extends Object {
 	// 1. Attributes
 	private long id;
@@ -22,6 +24,11 @@ public class Book extends Object {
 	public Book(String title, Author[] authors) {
 		this.title = title;
 		this.authors = authors;
+	}
+
+	public Book(String title, String authorStr) {
+		this.title = title;
+		this.authors = Library.convertStringToAuthors(authorStr);
 	}
 
 	public Book(String title, Author[] authors, Genre genre, int year, String publisher, String description,
