@@ -38,12 +38,24 @@ public class ShortestPath {
 		}
 		return sb.toString();
 	}
+	
+	public Position getCuriosityPosition() {
+		for(int i = 0; i < maze.length; i++) {
+			for(int j = 0; j < maze[i].length; j++) {
+				if (maze[i][j] == '*') {
+					return new Position(j, i);
+				}
+			}
+		}
+		return null;
+	}
 
 	public static void main(String[] args) {
 		ShortestPath problem = new ShortestPath("maze.txt");
 		try {
 			problem.readMazeFile();
 			System.out.println(problem.getMazeAsString());
+			System.out.println("Curiosity position: "+ problem.getCuriosityPosition());
 		} catch (InvalidMazeFileFormatException e) {
 			System.err.println(e.getMessage());
 		}
